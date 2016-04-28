@@ -21,12 +21,28 @@ module Easybill
           headers["authorization"] = "Bearer #{api_key}"
         end
 
-        def list
-          get resource_path
+        def list(query: {})
+          get resource_path, query: query
         end
 
-        def find(id)
-          get "#{resource_path}/#{id}"
+        def find(id, query: {})
+          get "#{resource_path}/#{id}", query: query
+        end
+
+        def create(data)
+          post resource_path, body: data.to_json
+        end
+
+        def update(id, data)
+          put "#{resource_path}/#{id}", body: data.to_json
+        end
+
+        def destroy(id)
+          delete "#{resource_path}/#{id}"
+        end
+
+        def custom_request(method:, path:, query: {}, data: {})
+          public_send(method, path, {query: query, body: data})
         end
 
         private
