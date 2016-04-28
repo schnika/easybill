@@ -48,11 +48,11 @@ module Easybill
         private
 
         def base_path
-          "rest/v1"
+          "/rest/v1"
         end
 
         def resource_path
-          "/#{base_path}/#{self.name.split("::").last.downcase}"
+          "#{base_path}/#{self.name.split("::").last.downcase}"
         end
       end
     end
