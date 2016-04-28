@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe Easybill::Api::Client do
-  let(:api_token)  { "my_awesome_api_token" }
-  subject(:client) { Easybill::Api::Client.new api_token }
+  let(:api_key)    { "my_awesome_api_token" }
+  subject(:client) { Easybill::Api::Client.new api_key }
 
   describe "#initialize" do
-    it "initializes a client instance with an api_key" do
-      expect(subject.api_key).to eq api_token
+    it "authenticates" do
+      expect(Easybill::Api::Base).to receive(:authenticate!).with(api_key)
+      subject
     end
   end
 
