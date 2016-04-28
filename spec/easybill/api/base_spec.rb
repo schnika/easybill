@@ -94,7 +94,7 @@ describe Easybill::Api::Base do
     let(:id)   { 1234 }
 
     it "performs the right request" do
-      expect(TestBase).to receive(:get).with(path, {query: {}, body: {}})
+      expect(TestBase).to receive(:get).with(path, {})
       TestBase.custom_request(method: :get, path: path)
     end
   end

@@ -42,7 +42,12 @@ module Easybill
         end
 
         def custom_request(method:, path:, query: {}, data: {})
-          public_send(method, path, {query: query, body: data})
+          request_options = {}
+
+          request_options[:body]  = data unless data.empty?
+          request_options[:query] = data unless query.empty?
+
+          public_send method, path, request_options
         end
 
         private
