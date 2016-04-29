@@ -1,5 +1,3 @@
-require "httparty"
-
 module Easybill
   module Api
     class Client
