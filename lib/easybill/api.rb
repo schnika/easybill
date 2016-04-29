@@ -6,6 +6,7 @@ require "easybill/api/base"
 require "easybill/api/attachments"
 require "easybill/api/contacts"
 require "easybill/api/customers"
+require "easybill/api/customer_groups"
 
 module Easybill
   module Api
