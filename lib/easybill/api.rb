@@ -7,6 +7,7 @@ require "easybill/api/attachments"
 require "easybill/api/contacts"
 require "easybill/api/customers"
 require "easybill/api/customer_groups"
+require "easybill/api/documents"
 
 module Easybill
   module Api
