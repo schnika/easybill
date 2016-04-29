@@ -10,6 +10,7 @@ require "easybill/api/customer_groups"
 require "easybill/api/documents"
 require "easybill/api/document_payments"
 require "easybill/api/positions"
+require "easybill/api/position_groups"
 
 module Easybill
   module Api
