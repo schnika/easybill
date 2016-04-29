@@ -8,6 +8,14 @@ module Easybill
       def customers
         Easybill::Api::Customers
       end
+
+      def attachments
+        Easybill::Api::Attachments
+      end
+
+      def contacts
+        Easybill::Api::Contacts
+      end
     end
   end
 end
