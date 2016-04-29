@@ -8,6 +8,7 @@ require "easybill/api/contacts"
 require "easybill/api/customers"
 require "easybill/api/customer_groups"
 require "easybill/api/documents"
+require "easybill/api/document_payments"
 
 module Easybill
   module Api
