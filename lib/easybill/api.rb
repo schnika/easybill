@@ -12,6 +12,7 @@ require "easybill/api/document_payments"
 require "easybill/api/positions"
 require "easybill/api/position_groups"
 require "easybill/api/post_boxes"
+require "easybill/api/projects"
 
 module Easybill
   module Api
