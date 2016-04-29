@@ -15,6 +15,7 @@ require "easybill/api/post_boxes"
 require "easybill/api/projects"
 require "easybill/api/tasks"
 require "easybill/api/text_templates"
+require "easybill/api/time_trackings"
 
 module Easybill
   module Api
