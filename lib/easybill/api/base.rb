@@ -5,11 +5,10 @@ module Easybill
     class Base
       include HTTParty
 
-      # Request headers
       HEADERS = {
-        "User-Agent"    => "Ruby.Easybill.Api",
-        "Accept"        => "application/json",
-        "Content-Type"  => "application/json"
+        "User-Agent"   => "Ruby.Easybill.Api",
+        "Accept"       => "application/json",
+        "Content-Type" => "application/json"
       }
 
       base_uri "https://api.easybill.de"
@@ -41,11 +40,12 @@ module Easybill
           delete "#{resource_path}/#{id}"
         end
 
-        def custom_request(method:, path:, query: {}, data: {})
+        def custom(method:, path:, query: {}, data: {}, headers: {})
           request_options = {}
 
-          request_options[:body]  = data unless data.empty?
-          request_options[:query] = data unless query.empty?
+          request_options[:body]    = data.to_json unless data.empty?
+          request_options[:query]   = query unless query.empty?
+          request_options[:headers] = headers unless headers.empty?
 
           public_send method, path, request_options
         end
@@ -57,7 +57,15 @@ module Easybill
         end
 
         def resource_path
-          "#{base_path}/#{self.name.split("::").last.downcase}"
+          "#{base_path}/#{dasherize(self.name.split("::").last)}"
+        end
+
+        def dasherize(camel_cased_word)
+          camel_cased_word.to_s.gsub(/::/, '/').
+          gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+          gsub(/([a-z\d])([A-Z])/,'\1_\2').
+          gsub("_", "-").
+          downcase
         end
       end
     end
