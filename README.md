@@ -20,21 +20,57 @@ Or install it yourself as:
 
 ## Usage
 
-
 Initialize a new api client:
 
 ```
 @api = Easybill::Api.new(<YOUR API TOKEN>)
 ```
 
+Example calls based on the `customers` resource:
+
 ```
-@api.customers.list
-=> Fetch all customers
+# Fetch all customers
+
+customers = @api.customers.list["items"]
 ```
 
 ```
-@api.customers.find(<ID>)
-=> Fetch one customers
+# Fetch one customers
+
+customer = @api.customers.find(<ID>)
+fist_name = response["first_name"]
+```
+
+```
+# Create a customer
+
+customer_hash = {
+  first_name: "fabio",
+  last_name: "lorenzo",
+  ...
+}
+
+customer = @api.customers.create(customer_hash)
+# => 201 created
+```
+
+```
+# Update a customer
+
+update_customer_hash = {
+  country: "UK",
+  ...
+}
+
+customer = @api.customers.update(<ID>, update_customer_hash)
+# => 200 ok
+```
+
+```
+# Delete a customer
+
+@api.customers.destroy(<ID>)
+# => 204 deleted
 ```
 
 ## Development
