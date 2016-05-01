@@ -40,6 +40,8 @@ module Easybill
           delete "#{resource_path}/#{id}"
         end
 
+        protected
+
         def custom(method:, path:, query: {}, data: {}, headers: {})
           request_options = {}
 
