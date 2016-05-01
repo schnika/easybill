@@ -6,7 +6,7 @@ describe Easybill::Api::Client do
 
   describe "#initialize" do
     it "authenticates" do
-      expect(Easybill::Api::Base).to receive(:authenticate!).with(api_key)
+      expect(Easybill::Api::Base).to receive(:authenticate).with(api_key)
       subject
     end
   end

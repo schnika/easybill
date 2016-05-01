@@ -16,7 +16,7 @@ module Easybill
       format :json
 
       class << self
-        def authenticate!(api_key)
+        def authenticate(api_key)
           headers["authorization"] = "Bearer #{api_key}"
         end
 

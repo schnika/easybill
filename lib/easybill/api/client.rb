@@ -2,7 +2,7 @@ module Easybill
   module Api
     class Client
       def initialize(api_key)
-        Easybill::Api::Base.authenticate! api_key
+        Easybill::Api::Base.authenticate api_key
       end
 
       def attachments

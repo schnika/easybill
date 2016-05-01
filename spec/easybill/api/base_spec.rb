@@ -17,11 +17,11 @@ describe Easybill::Api::Base do
     expect(Easybill::Api::Base.headers["Content-Type"]).to eq("application/json")
   end
 
-  describe ".authenticate!" do
+  describe ".authenticate" do
     let(:api_key) { "awesomeapikey" }
 
     it "sets the authentication header" do
-      Easybill::Api::Base.authenticate!(api_key)
+      Easybill::Api::Base.authenticate api_key
       expect(Easybill::Api::Base.headers["authorization"]).to be
       expect(Easybill::Api::Base.headers["authorization"]).to eq "Bearer #{api_key}"
     end
