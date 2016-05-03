@@ -2,8 +2,8 @@ module Easybill
   module Errors
     class BaseError < StandardError; end
 
-    class ApiError < BaseError; end
-    class RateLimitExceededError < ApiError; end
+    class EasybillError < BaseError; end
+    class RateLimitExceededError < EasybillError; end
 
     class ResourceNotCreatableError < BaseError; end
     class ResourceNotUpdatableError < BaseError; end

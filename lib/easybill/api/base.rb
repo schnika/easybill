@@ -1,4 +1,5 @@
 require 'httparty'
+require 'ostruct'
 
 module Easybill
   module Api
@@ -14,7 +15,7 @@ module Easybill
     #
     # Provides the basic interface. Such as list, find, create, update, destroy
 
-    class Base
+    class Base < OpenStruct
       include HTTParty
 
       HEADERS = {
@@ -40,7 +41,9 @@ module Easybill
         # Fetches all resources. You can set custom +query+ parameters.
 
         def list(query: {})
-          get resource_path, query: query
+          execute do
+            get resource_path, query: query
+          end
         end
 
         ##
@@ -48,7 +51,9 @@ module Easybill
         # api.find(id, query: {group: 1})
 
         def find(id, query: {})
-          get "#{resource_path}/#{id}", query: query
+          execute do
+            get "#{resource_path}/#{id}", query: query
+          end
         end
 
         ##
@@ -62,7 +67,9 @@ module Easybill
         # api.create(data)
 
         def create(data)
-          post resource_path, body: data.to_json
+          execute do
+            post resource_path, body: data.to_json
+          end
         end
 
         ##
@@ -77,7 +84,9 @@ module Easybill
         # api.update(id, data)
 
         def update(id, data)
-          put "#{resource_path}/#{id}", body: data.to_json
+          execute do
+            put "#{resource_path}/#{id}", body: data.to_json
+          end
         end
 
         ##
@@ -85,7 +94,9 @@ module Easybill
         # api.destroy(id)
 
         def destroy(id)
-          delete "#{resource_path}/#{id}"
+          execute do
+            delete "#{resource_path}/#{id}"
+          end
         end
 
         protected
@@ -97,10 +108,26 @@ module Easybill
           request_options[:query]   = query unless query.empty?
           request_options[:headers] = headers unless headers.empty?
 
-          public_send method, path, request_options
+          execute do
+            public_send method, path, request_options
+          end
         end
 
         private
+
+        def execute(&block)
+          response = block.call
+
+          if response.success?
+            if !!response["items"]
+              response["items"].map { |item| new(item) }
+            else
+              new(response)
+            end
+          else
+            raise Easybill::Errors::EasybillError, response
+          end
+        end
 
         def base_path
           "/rest/v1"

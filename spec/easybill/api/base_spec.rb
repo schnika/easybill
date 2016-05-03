@@ -3,6 +3,12 @@ require 'spec_helper'
 describe Easybill::Api::Base do
   class Easybill::Api::TestBase < Easybill::Api::Base; end
 
+  let(:response) do
+    OpenStruct.new(
+      :success? => true
+    )
+  end
+
   it "has a base_uri set" do
     expect(Easybill::Api::Base.base_uri).to eq("https://api.easybill.de")
   end
@@ -29,7 +35,7 @@ describe Easybill::Api::Base do
 
   describe ".list" do
     it "returns all entities" do
-      expect(Easybill::Api::TestBase).to receive(:get).with("/rest/v1/test-base", query: {})
+      expect(Easybill::Api::TestBase).to receive(:get).with("/rest/v1/test-base", query: {}).and_return(response)
       Easybill::Api::TestBase.list
     end
 
@@ -37,7 +43,7 @@ describe Easybill::Api::Base do
       let(:query) { {foo: :bar} }
 
       it "adds query parameters to the url" do
-        expect(Easybill::Api::TestBase).to receive(:get).with("/rest/v1/test-base", query: query)
+        expect(Easybill::Api::TestBase).to receive(:get).with("/rest/v1/test-base", query: query).and_return(response)
         Easybill::Api::TestBase.list(query: query)
       end
     end
@@ -47,7 +53,7 @@ describe Easybill::Api::Base do
     let(:id) { 1234 }
 
     it "returns an entity" do
-      expect(Easybill::Api::TestBase).to receive(:get).with("/rest/v1/test-base/#{id}", query: {})
+      expect(Easybill::Api::TestBase).to receive(:get).with("/rest/v1/test-base/#{id}", query: {}).and_return(response)
       Easybill::Api::TestBase.find(id)
     end
 
@@ -55,7 +61,7 @@ describe Easybill::Api::Base do
       let(:query) { {foo: :bar} }
 
       it "adds query parameters to the url" do
-        expect(Easybill::Api::TestBase).to receive(:get).with("/rest/v1/test-base/#{id}", query: query)
+        expect(Easybill::Api::TestBase).to receive(:get).with("/rest/v1/test-base/#{id}", query: query).and_return(response)
         Easybill::Api::TestBase.find(id, query: query)
       end
     end
@@ -65,7 +71,7 @@ describe Easybill::Api::Base do
     let(:data) { {foo: :bar} }
 
     it "creates an entity" do
-      expect(Easybill::Api::TestBase).to receive(:post).with("/rest/v1/test-base", body: data.to_json)
+      expect(Easybill::Api::TestBase).to receive(:post).with("/rest/v1/test-base", body: data.to_json).and_return(response)
       Easybill::Api::TestBase.create(data)
     end
   end
@@ -74,7 +80,7 @@ describe Easybill::Api::Base do
     let(:id) { 1234 }
 
     it "deletes an entity" do
-      expect(Easybill::Api::TestBase).to receive(:delete).with("/rest/v1/test-base/#{id}")
+      expect(Easybill::Api::TestBase).to receive(:delete).with("/rest/v1/test-base/#{id}").and_return(response)
       Easybill::Api::TestBase.destroy(id)
     end
   end
@@ -84,7 +90,7 @@ describe Easybill::Api::Base do
     let(:data) { {foo: :bar} }
 
     it "updates an entity" do
-      expect(Easybill::Api::TestBase).to receive(:put).with("/rest/v1/test-base/#{id}", body: data.to_json)
+      expect(Easybill::Api::TestBase).to receive(:put).with("/rest/v1/test-base/#{id}", body: data.to_json).and_return(response)
       Easybill::Api::TestBase.update(id, data)
     end
   end
@@ -94,7 +100,7 @@ describe Easybill::Api::Base do
     let(:id)   { 1234 }
 
     it "performs the right request" do
-      expect(Easybill::Api::TestBase).to receive(:get).with(path, {})
+      expect(Easybill::Api::TestBase).to receive(:get).with(path, {}).and_return(response)
       Easybill::Api::TestBase.send(:custom, method: :get, path: path)
     end
 
@@ -102,7 +108,7 @@ describe Easybill::Api::Base do
       let(:query) { {foo: :bar} }
 
       it "sets the query params" do
-        expect(Easybill::Api::TestBase).to receive(:get).with(path, query: query)
+        expect(Easybill::Api::TestBase).to receive(:get).with(path, query: query).and_return(response)
         Easybill::Api::TestBase.send(:custom, method: :get, path: path, query: query)
       end
     end
@@ -111,7 +117,7 @@ describe Easybill::Api::Base do
       let(:data) { {foo: :bar} }
 
       it "sets the body" do
-        expect(Easybill::Api::TestBase).to receive(:get).with(path, body: data.to_json)
+        expect(Easybill::Api::TestBase).to receive(:get).with(path, body: data.to_json).and_return(response)
         Easybill::Api::TestBase.send(:custom, method: :get, path: path, data: data)
       end
     end
@@ -120,9 +126,20 @@ describe Easybill::Api::Base do
       let(:different_header) { {"Content-Type" => "application/pdf"} }
 
       it "sets the right header" do
-        expect(Easybill::Api::TestBase).to receive(:get).with(path, headers: different_header)
+        expect(Easybill::Api::TestBase).to receive(:get).with(path, headers: different_header).and_return(response)
         Easybill::Api::TestBase.send(:custom, method: :get, path: path, headers: different_header)
       end
+    end
+  end
+
+  describe ".execute" do
+    it "initializes the response object" do
+      expect(Easybill::Api::Base).to receive(:get).with("/rest/v1/base").and_return(response)
+
+      Easybill::Api::TestBase.send(:execute) do
+        response = Easybill::Api::Base.get("/rest/v1/base")
+      end
+      expect(response).to be_a(OpenStruct)
     end
   end
 
