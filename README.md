@@ -4,7 +4,7 @@ This is the ruby wrapper for the easybill REST Api.
 
 !Attention!
 
-This gem is under active development. Until Version 1.0 is released the interface of some might change.
+This gem is under active development. Until Version 1.0 is released the interface of some classes might change.
 
 ## Installation
 
