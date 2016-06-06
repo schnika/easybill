@@ -2,10 +2,6 @@
 
 This is the ruby wrapper for the easybill REST Api.
 
-!Attention!
-
-This gem is under active development. Until Version 1.0 is released the interface of some classes might change.
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -27,7 +23,7 @@ Or install it yourself as:
 Initialize a new api client:
 
 ```
-@api = Easybill::Api.new(<YOUR API TOKEN>)
+@api = Easybill::Api::Client.new(<YOUR API TOKEN>)
 ```
 
 Example calls based on the `customers` resource:
