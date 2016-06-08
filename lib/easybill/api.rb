@@ -1,7 +1,8 @@
 require "easybill/api/version"
 
-require "easybill/errors/errors"
+require "easybill/errors"
 require "easybill/api/client"
+require "easybill/api/response_handler"
 require "easybill/api/base"
 require "easybill/api/attachments"
 require "easybill/api/contacts"
