@@ -7,6 +7,8 @@ module Easybill
 
     class Client
 
+      ENTITIES = [:Base, :Attachments, :Contacts, :Customers, :CustomerGroups, :Documents, :DocumentPayments, :Positions, :PositionGroups, :PostBoxes, :Projects, :Tasks, :TextTemplates, :TimeTrackings].freeze
+
       ##
       # Create a new client instance with an +api_key+
       #
@@ -14,7 +16,10 @@ module Easybill
       # @api = Easybill::Api::Client.new("api_key")
 
       def initialize(api_key)
-        Easybill::Api::Base.authenticate api_key
+        ENTITIES.each do |entity|
+          eval("Easybill::Api::#{entity}").authenticate api_key
+        end
+        self
       end
 
       ##

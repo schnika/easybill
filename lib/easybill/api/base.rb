@@ -34,7 +34,7 @@ module Easybill
         # Set the authorization header by providing your easybill +api_key+
 
         def authenticate(api_key)
-          headers["authorization"] = "Bearer #{api_key}"
+          headers("authorization" => "Bearer #{api_key}")
         end
 
         ##
