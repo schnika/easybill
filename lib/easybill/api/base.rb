@@ -16,6 +16,7 @@ module Easybill
 
     class Base
       include HTTParty
+      include ResponseHandler
 
       HEADERS = {
         "User-Agent"   => "Ruby.Easybill.Api",
@@ -40,7 +41,7 @@ module Easybill
         # Fetches all resources. You can set custom +query+ parameters.
 
         def list(query: {})
-          get resource_path, query: query
+          handle(get resource_path, query: query)
         end
 
         ##
@@ -48,7 +49,7 @@ module Easybill
         # api.find(id, query: {group: 1})
 
         def find(id, query: {})
-          get "#{resource_path}/#{id}", query: query
+          handle(get "#{resource_path}/#{id}", query: query)
         end
 
         ##
@@ -62,7 +63,7 @@ module Easybill
         # api.create(data)
 
         def create(data)
-          post resource_path, body: data.to_json
+          handle(post resource_path, body: data.to_json)
         end
 
         ##
@@ -77,7 +78,7 @@ module Easybill
         # api.update(id, data)
 
         def update(id, data)
-          put "#{resource_path}/#{id}", body: data.to_json
+          handle(put "#{resource_path}/#{id}", body: data.to_json)
         end
 
         ##
@@ -85,7 +86,7 @@ module Easybill
         # api.destroy(id)
 
         def destroy(id)
-          delete "#{resource_path}/#{id}"
+          handle(delete "#{resource_path}/#{id}")
         end
 
         protected
@@ -97,7 +98,7 @@ module Easybill
           request_options[:query]   = query unless query.empty?
           request_options[:headers] = headers unless headers.empty?
 
-          public_send method, path, request_options
+          handle(public_send method, path, request_options)
         end
 
         private
