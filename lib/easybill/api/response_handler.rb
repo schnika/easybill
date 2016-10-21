@@ -11,15 +11,15 @@ module Easybill
           when 200..299
             response
           when 400
-            raise Easybill::Errors::BadRequestError, response.message
+            raise Easybill::Errors::BadRequestError, response.body
           when 401
-            raise Easybill::Errors::NotAuthorizedError, response.message
+            raise Easybill::Errors::NotAuthorizedError, response.body
           when 404
-            raise Easybill::Errors::ResourceNotFoundError, response.message
+            raise Easybill::Errors::ResourceNotFoundError, response.body
           when 429
-            raise Easybill::Errors::RateLimitExceededError, response.message
+            raise Easybill::Errors::RateLimitExceededError, response.body
           when 500...600
-            raise Easybill::Errors::ServerError, "Failed with: #{response.code} #{response.message}"
+            raise Easybill::Errors::ServerError, "Failed with: #{response.code} #{response.body}"
           end
         end
       end
