@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "easybill-api"
   spec.version       = Easybill::Api::VERSION
   spec.authors       = ["Patrick Schnetger"]
-  spec.email         = ["patrick.schnetger@gmail.com"]
+  spec.email         = ["mail@patrick-schnetger.com"]
 
   spec.summary       = %q{Wrapper for the easybill REST api}
   spec.homepage      = "https://www.github.com/schnika/easybill"
@@ -26,10 +26,10 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.11"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "webmock", "~> 1.24"
+  spec.add_development_dependency "bundler", "~> 1.17.3"
+  spec.add_development_dependency "rake", "~> 12.3.2"
+  spec.add_development_dependency "rspec", "~> 3.8"
+  spec.add_development_dependency "webmock", "~> 3.5"
 
-  spec.add_runtime_dependency "httparty", "~> 0.13", '>= 0.13.7'
+  spec.add_runtime_dependency "httparty", "~> 0.16.3"
 end

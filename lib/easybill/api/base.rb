@@ -91,12 +91,13 @@ module Easybill
 
         protected
 
-        def custom(method:, path:, query: {}, data: {}, headers: {})
+        def custom(method:, path:, query: {}, data: {}, headers: {}, format: :json)
           request_options = {}
 
           request_options[:body]    = data.to_json unless data.empty?
           request_options[:query]   = query unless query.empty?
           request_options[:headers] = headers unless headers.empty?
+          request_options[:format]  = format
 
           handle(public_send method, path, request_options)
         end

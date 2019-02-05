@@ -96,7 +96,7 @@ describe Easybill::Api::Base do
     let(:id)   { 1234 }
 
     it "performs the right request" do
-      expect(Easybill::Api::TestBase).to receive(:get).with(path, {}).and_return(success_response)
+      expect(Easybill::Api::TestBase).to receive(:get).with(path, {format: :json}).and_return(success_response)
       Easybill::Api::TestBase.send(:custom, method: :get, path: path)
     end
 
@@ -104,7 +104,7 @@ describe Easybill::Api::Base do
       let(:query) { {foo: :bar} }
 
       it "sets the query params" do
-        expect(Easybill::Api::TestBase).to receive(:get).with(path, query: query).and_return(success_response)
+        expect(Easybill::Api::TestBase).to receive(:get).with(path, query: query, format: :json).and_return(success_response)
         Easybill::Api::TestBase.send(:custom, method: :get, path: path, query: query)
       end
     end
@@ -113,7 +113,7 @@ describe Easybill::Api::Base do
       let(:data) { {foo: :bar} }
 
       it "sets the body" do
-        expect(Easybill::Api::TestBase).to receive(:get).with(path, body: data.to_json).and_return(success_response)
+        expect(Easybill::Api::TestBase).to receive(:get).with(path, body: data.to_json, format: :json).and_return(success_response)
         Easybill::Api::TestBase.send(:custom, method: :get, path: path, data: data)
       end
     end
@@ -122,7 +122,7 @@ describe Easybill::Api::Base do
       let(:different_header) { {"Content-Type" => "application/pdf"} }
 
       it "sets the right header" do
-        expect(Easybill::Api::TestBase).to receive(:get).with(path, headers: different_header).and_return(success_response)
+        expect(Easybill::Api::TestBase).to receive(:get).with(path, headers: different_header, format: :json).and_return(success_response)
         Easybill::Api::TestBase.send(:custom, method: :get, path: path, headers: different_header)
       end
     end

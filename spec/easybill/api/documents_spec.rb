@@ -47,7 +47,11 @@ describe Easybill::Api::Documents do
       expect(Easybill::Api::Documents).to receive(:custom).with(
         method: :get,
         path: "/rest/v1/documents/#{id}/pdf",
-        headers: {"Content-Type" => "application/pdf"}
+        headers: {
+          "Content-Type" => "application/pdf",
+          "Accept" => "application/pdf"
+        },
+        format: :pdf
       )
       Easybill::Api::Documents.pdf(id)
     end

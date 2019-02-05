@@ -15,7 +15,15 @@ module Easybill
         end
 
         def pdf(id)
-          custom method: :get, path: "#{resource_path}/#{id}/pdf", headers: {"Content-Type" => "application/pdf"}
+          custom(
+            method: :get,
+            path: "#{resource_path}/#{id}/pdf",
+            headers: {
+              "Content-Type" => "application/pdf",
+              "Accept" => "application/pdf"
+            },
+            format: :pdf
+          )
         end
       end
     end
