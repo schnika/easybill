@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/schnika/easybill.svg?style=svg)](https://circleci.com/gh/schnika/easybill)
+
 # Easybill::Api
 
 This is the ruby wrapper for the easybill REST Api.
@@ -82,7 +84,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/schnika/easybill-api. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
 
 ## License
 
