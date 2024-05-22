@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:3.3.0
+      - image: cimg/ruby:3.3.0
     steps:
       - checkout
       - run:
