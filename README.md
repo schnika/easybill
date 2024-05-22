@@ -1,4 +1,3 @@
-[![CircleCI](https://circleci.com/gh/schnika/easybill.svg?style=svg)](https://circleci.com/gh/schnika/easybill)
 [![Maintainability](https://api.codeclimate.com/v1/badges/50d989f72ecce4e91ff9/maintainability)](https://codeclimate.com/github/schnika/easybill/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/50d989f72ecce4e91ff9/test_coverage)](https://codeclimate.com/github/schnika/easybill/test_coverage)
 
