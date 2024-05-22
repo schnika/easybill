@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 module Easybill
   module Api
-
     ##
     # This class represents the client object.
     # Use this class to initialize you api client
 
     class Client
-
-      ENTITIES = [:Base, :Attachments, :Contacts, :Customers, :CustomerGroups, :Documents, :DocumentPayments, :Positions, :PositionGroups, :PostBoxes, :Projects, :Tasks, :TextTemplates, :TimeTrackings].freeze
+      ENTITIES = %i[Base Attachments Contacts Customers CustomerGroups Documents DocumentPayments
+                    Positions PositionGroups PostBoxes Projects Tasks TextTemplates TimeTrackings].freeze
 
       ##
       # Create a new client instance with an +api_key+
@@ -17,9 +18,8 @@ module Easybill
 
       def initialize(api_key)
         ENTITIES.each do |entity|
-          eval("Easybill::Api::#{entity}").authenticate api_key
+          Object.const_get("Easybill::Api::#{entity}").authenticate api_key
         end
-        self
       end
 
       ##

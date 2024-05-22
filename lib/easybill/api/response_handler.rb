@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Easybill
   module Api
     module ResponseHandler
@@ -26,4 +28,3 @@ module Easybill
     end
   end
 end
-

@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'httparty'
 
 module Easybill
   module Api
-
     ##
     # The base class for all Easybill entities.
     # Set the authorization header before using it via `.authenticate`
@@ -19,29 +20,28 @@ module Easybill
       include ResponseHandler
 
       HEADERS = {
-        "User-Agent"   => "Ruby.Easybill.Api",
-        "Accept"       => "application/json",
-        "Content-Type" => "application/json"
-      }
+        'User-Agent' => 'Ruby.Easybill.Api',
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json'
+      }.freeze
 
-      base_uri "https://api.easybill.de"
+      base_uri 'https://api.easybill.de'
       headers HEADERS
       format :json
 
       class << self
-
         ##
         # Set the authorization header by providing your easybill +api_key+
 
         def authenticate(api_key)
-          headers("authorization" => "Bearer #{api_key}")
+          headers('authorization' => "Bearer #{api_key}")
         end
 
         ##
         # Fetches all resources. You can set custom +query+ parameters.
 
         def list(query: {})
-          handle(get resource_path, query: query)
+          handle(get(resource_path, query:))
         end
 
         ##
@@ -49,7 +49,7 @@ module Easybill
         # api.find(id, query: {group: 1})
 
         def find(id, query: {})
-          handle(get "#{resource_path}/#{id}", query: query)
+          handle(get("#{resource_path}/#{id}", query:))
         end
 
         ##
@@ -63,7 +63,7 @@ module Easybill
         # api.create(data)
 
         def create(data)
-          handle(post resource_path, body: data.to_json)
+          handle(post(resource_path, body: data.to_json))
         end
 
         ##
@@ -78,7 +78,7 @@ module Easybill
         # api.update(id, data)
 
         def update(id, data)
-          handle(put "#{resource_path}/#{id}", body: data.to_json)
+          handle(put("#{resource_path}/#{id}", body: data.to_json))
         end
 
         ##
@@ -86,11 +86,12 @@ module Easybill
         # api.destroy(id)
 
         def destroy(id)
-          handle(delete "#{resource_path}/#{id}")
+          handle(delete("#{resource_path}/#{id}"))
         end
 
         protected
 
+        # rubocop:disable Metrics/ParameterLists
         def custom(method:, path:, query: {}, data: {}, headers: {}, format: :json)
           request_options = {}
 
@@ -99,26 +100,27 @@ module Easybill
           request_options[:headers] = headers unless headers.empty?
           request_options[:format]  = format
 
-          handle(public_send method, path, request_options)
+          handle(public_send(method, path, request_options))
         end
+        # rubocop:enable Metrics/ParameterLists
 
         private
 
         def base_path
-          "/rest/v1"
+          '/rest/v1'
         end
 
         def resource_path
-          "#{base_path}/#{dasherize(self.name.split("::").last)}"
+          "#{base_path}/#{dasherize(name.split('::').last)}"
         end
 
         # TODO-schnika: move this out of here Oo
         def dasherize(camel_cased_word)
-          camel_cased_word.to_s.gsub(/::/, '/').
-          gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-          gsub(/([a-z\d])([A-Z])/,'\1_\2').
-          gsub("_", "-").
-          downcase
+          camel_cased_word.to_s.gsub('::', '/')
+                          .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+                          .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+                          .gsub('_', '-')
+                          .downcase
         end
       end
     end

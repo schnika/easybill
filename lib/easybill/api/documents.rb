@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Easybill
   module Api
     class Documents < Base
@@ -11,7 +13,7 @@ module Easybill
         end
 
         def deliver(id, type, data)
-          custom method: :post, path: "#{resource_path}/#{id}/send/#{type}", data: data
+          custom method: :post, path: "#{resource_path}/#{id}/send/#{type}", data:
         end
 
         def pdf(id)
@@ -19,8 +21,8 @@ module Easybill
             method: :get,
             path: "#{resource_path}/#{id}/pdf",
             headers: {
-              "Content-Type" => "application/pdf",
-              "Accept" => "application/pdf"
+              'Content-Type' => 'application/pdf',
+              'Accept' => 'application/pdf'
             },
             format: :pdf
           )
