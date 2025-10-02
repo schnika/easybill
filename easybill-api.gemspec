@@ -26,6 +26,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.required_ruby_version = '>= 3.3'
 
-  spec.add_runtime_dependency 'httparty', '>= 0.16.3', '< 0.19.0'
+  spec.add_runtime_dependency 'httparty', '>= 0.16.3', '< 0.24.0'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end
